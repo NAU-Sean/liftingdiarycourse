@@ -3,7 +3,10 @@
     "allow": [
       "Bash(xargs grep:*)",
       "Bash(npm run:*)",
-      "Bash(npx shadcn@latest init -d)"
+      "Bash(npx shadcn@latest init -d)",
+      "Bash(npx shadcn@latest add calendar popover)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn@latest add card badge)"
     ]
   },
   "enableAllProjectMcpServers": true,
