@@ -1,6 +1,12 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "Bash(npm run:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "neon"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }
