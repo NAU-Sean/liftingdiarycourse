@@ -15,6 +15,7 @@
 
 Current docs:
 - /docs/ui.md — shadcn/ui component rules and date formatting (date-fns)
+- /docs/data-fetching.md — data fetching rules: server components only, /data helper functions, user data scoping
 
 ## Development Commands
 
