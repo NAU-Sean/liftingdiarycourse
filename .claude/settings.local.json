@@ -6,7 +6,9 @@
       "Bash(npx shadcn@latest init -d)",
       "Bash(npx shadcn@latest add calendar popover)",
       "Bash(npm install:*)",
-      "Bash(npx shadcn@latest add card badge)"
+      "Bash(npx shadcn@latest add card badge)",
+      "Bash(npx shadcn@latest add input label select separator --yes)",
+      "Bash(npx tsc:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
