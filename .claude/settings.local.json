@@ -8,7 +8,9 @@
       "Bash(npm install:*)",
       "Bash(npx shadcn@latest add card badge)",
       "Bash(npx shadcn@latest add input label select separator --yes)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Skill(update-config)",
+      "Bash(grep '\"\"zod\"\"' package.json)"
     ]
   },
   "enableAllProjectMcpServers": true,

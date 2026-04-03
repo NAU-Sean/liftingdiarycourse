@@ -1,29 +1,33 @@
 "use server";
 
+import { z } from "zod";
 import { createWorkout } from "@/data/workouts";
 import { redirect } from "next/navigation";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
-export async function logWorkoutAction(formData: FormData): Promise<void> {
-  const name = formData.get("workoutName") as string;
-  const dateStr = formData.get("date") as string;
-  const exercisesJson = formData.get("exercises") as string;
+const SetSchema = z.object({
+  setNumber: z.number().int().positive(),
+  reps: z.number().int().positive().optional(),
+  weightLbs: z.number().positive().optional(),
+  durationSeconds: z.number().positive().optional(),
+});
 
-  if (!name || !dateStr || !exercisesJson) {
-    throw new Error("Missing required fields");
-  }
+const ExerciseSchema = z.object({
+  name: z.string().min(1),
+  order: z.number().int().nonnegative(),
+  sets: z.array(SetSchema),
+});
 
-  const date = parseISO(dateStr);
-  const exercises = JSON.parse(exercisesJson) as Array<{
-    name: string;
-    order: number;
-    sets: Array<{
-      setNumber: number;
-      reps?: number;
-      weightLbs?: number;
-      durationSeconds?: number;
-    }>;
-  }>;
+const LogWorkoutSchema = z.object({
+  name: z.string().min(1),
+  date: z.coerce.date(),
+  exercises: z.array(ExerciseSchema).min(1),
+});
+
+type LogWorkoutInput = z.infer<typeof LogWorkoutSchema>;
+
+export async function logWorkoutAction(input: LogWorkoutInput): Promise<void> {
+  const { name, date, exercises } = LogWorkoutSchema.parse(input);
 
   await createWorkout({ name, date, exercises });
 

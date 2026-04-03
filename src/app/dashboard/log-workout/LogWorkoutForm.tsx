@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,7 +33,6 @@ export function LogWorkoutForm({ date }: { date: string }) {
   const [workoutName, setWorkoutName] = useState("");
   const [selectedBundle, setSelectedBundle] = useState<string | null>(null);
   const [exerciseList, setExerciseList] = useState<ExerciseData[]>([]);
-  const formRef = useRef<HTMLFormElement>(null);
 
   function applyBundle(bundleName: string) {
     const bundle = WORKOUT_BUNDLES.find((b) => b.name === bundleName);
@@ -118,14 +117,17 @@ export function LogWorkoutForm({ date }: { date: string }) {
     );
   }
 
-  async function handleSubmit(formData: FormData) {
-    formData.set("exercises", JSON.stringify(exerciseList));
-    await logWorkoutAction(formData);
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    await logWorkoutAction({
+      name: workoutName,
+      date: date,
+      exercises: exerciseList,
+    });
   }
 
   return (
-    <form ref={formRef} action={handleSubmit} className="flex flex-col gap-6">
-      <input type="hidden" name="date" value={date} />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6">
 
       {/* Bundle picker */}
       <div className="flex flex-col gap-2">
